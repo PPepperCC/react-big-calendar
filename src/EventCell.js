@@ -47,6 +47,7 @@ class EventCell extends React.Component {
     let end = accessors.end(event)
     let start = accessors.start(event)
     let allDay = accessors.allDay(event)
+    let EventComponent = onSelect || onDoubleClick ? 'button' : 'div';
 
     let showAsAllDay =
       isAllDay || allDay || dates.diff(start, dates.ceil(end, 'day'), 'day') > 1
@@ -70,7 +71,7 @@ class EventCell extends React.Component {
 
     return (
       <EventWrapper {...this.props} type="date">
-        <button
+        <EventComponent
           {...props}
           style={{ ...userProps.style, ...style }}
           className={cn('rbc-event', className, userProps.className, {
@@ -83,7 +84,7 @@ class EventCell extends React.Component {
           onDoubleClick={e => onDoubleClick && onDoubleClick(event, e)}
         >
           {typeof children === 'function' ? children(content) : content}
-        </button>
+        </EventComponent>
       </EventWrapper>
     )
   }
